@@ -99,7 +99,6 @@ function _GetLoginExpirationTimes() {
 						"(&(ObjectClass=${_user_object_class})(cn:dn:=${_user}))" \
 						"${_user_expiration_date}" \
 					| (grep "${_user_expiration_date}" || true) \
-					| sed "s/${_user_expiration_date}: //"
 				)
 				while read -r _line; do
 					if [[ "${_line}" =~ ${_user_expiration_regex} ]]; then
