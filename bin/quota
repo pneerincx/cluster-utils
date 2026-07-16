@@ -872,8 +872,13 @@ for THIS_GROUP in "${QUOTA_GROUPS[@]:-}"
 do
   #echo "DEBUG: processing ${THIS_GROUP} ..."
   if [[ -e "/groups/${THIS_GROUP}" ]]; then
-    #echo "DEBUG: trying to access /groups/${THIS_GROUP}/*/.quotacache to trigger automounts ..."
-    if ls -1 /groups/"${THIS_GROUP}"/*/.quotacache > /dev/null 2>&1; then
+    #
+    # Trigger any LFS automounts for this group except the ones starting with an "a"
+    # to exclude arc* automounts as none of the arc LFS-ses currently support quota
+    # and triggering those automounts only cause delays making this command slow.
+    #
+    #echo "DEBUG: trying to access /groups/${THIS_GROUP}/[^a]*/.quotacache to trigger automounts ..."
+    if ls -1 /groups/"${THIS_GROUP}"/[^a]*/.quotacache > /dev/null 2>&1; then
       : # No-op; the ls is only used to trigger automounts.
     fi
   fi
