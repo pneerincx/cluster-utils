@@ -878,7 +878,7 @@ do
     # and triggering those automounts only cause delays making this command slow.
     #
     #echo "DEBUG: trying to access /groups/${THIS_GROUP}/[^a]*/.quotacache to trigger automounts ..."
-    if ls -1 /groups/"${THIS_GROUP}"/[^]*/.quotacache > /dev/null 2>&1; then
+    if ls -1 /groups/"${THIS_GROUP}"/[^a]*/.quotacache > /dev/null 2>&1; then
       : # No-op; the ls is only used to trigger automounts.
     fi
   fi
